@@ -1,0 +1,277 @@
+
+A {
+    color: #2754bb;
+    text-decoration: none;
+}
+A:hover {
+    color: #e20303;
+    text-decoration: underline;
+}
+.zi-banner {
+    color: #ffffff;
+    font-family: "Verdana";
+    font-size: 14px;
+}
+.input_combobox3 {
+    background-color: #ffffff;
+    background-position: center center;
+    border: 1px solid #589442;
+    color: #666666;
+    font-family: "宋体";
+    font-size: 12px;
+    height: 20px;
+    padding: 3px;
+    text-decoration: none;
+    width: 148px;
+}
+.show {
+    color: #404040;
+    font-family: "Verdana";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi-search {
+    color: #333333;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi-zhu {
+    color: #666666;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi-leibie1 {
+    color: #333333;
+    font-family: "宋体";
+    font-size: 14px;
+    line-height: 20px;
+}
+.zi-leibie2 {
+    color: #333333;
+    font-family: "Verdana";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi-leibie3 {
+    color: #333333;
+    font-family: "宋体";
+    font-size: 14px;
+    line-height: 24px;
+}
+.zi-leibie4 {
+    height: 22px;
+    width: 120px;
+    color: #333333;
+    font-family: "宋体";
+    font-size: 13px;
+    line-height: 24px;
+}
+.chan {
+    color: #00529b;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 18px;
+}
+.kefu {
+    color: #ee7818;
+    font-family: "Verdana";
+    font-size: 16px;
+    font-weight: bold;
+}
+.xinwen {
+    color: #ff0000;
+    font-family: "Verdana";
+    font-size: 12px;
+    line-height: 18px;
+}
+DIV.digg {
+    line-height: 40px;
+    margin: 2px;
+    padding: 2px;
+    text-align: center;
+}
+DIV.digg A {
+    border-color: #2a6613;
+    border-right: 1px solid #2a6613;
+    border-style: solid;
+    border-width: 1px;
+    color: #2a6613;
+    font-family: "Verdana";
+    font-size: 14px;
+    margin: 2px;
+    padding: 2px 5px;
+    text-decoration: none;
+}
+DIV.digg A:hover {
+    border-color: #2a6613;
+    border-right: 1px solid #2a6613;
+    border-style: solid;
+    border-width: 1px;
+    color: #ff3300;
+    font-family: "Verdana";
+    font-size: 14px;
+}
+DIV.digg A:active {
+    border-color: #2a6613;
+    border-right: 1px solid #2a6613;
+    border-style: solid;
+    border-width: 1px;
+    color: #ff3300;
+    font-family: "Verdana";
+    font-size: 14px;
+}
+DIV.digg SPAN.current {
+    background-color: #2a6613;
+    border-color: #2a6613;
+    border-right: 1px solid #2a6613;
+    border-style: solid;
+    border-width: 1px;
+    color: #fff;
+    font-family: "Verdana";
+    font-size: 14px;
+    font-weight: bold;
+    margin: 2px;
+    padding: 2px 5px;
+}
+DIV.digg SPAN.disabled {
+    border-color: #eee;
+    border-right: 1px solid #eee;
+    border-style: solid;
+    border-width: 1px;
+    color: #ddd;
+    font-family: "Verdana";
+    font-size: 14px;
+    line-height: 40px;
+    margin: 2px;
+    padding: 2px 5px;
+}
+.input_combobox5 {
+    background-color: #ffffff;
+    background-position: center center;
+    border: 1px solid #589442;
+    color: #333333;
+    font-family: "Verdana";
+    font-size: 12px;
+    height: 28px;
+    padding-left: 5px;
+    padding-top: 5px;
+    width: 290px;
+}
+.yud {
+    background-position: center center;
+    border: 1px solid #3e7806;
+    color: #000;
+    font-family: "Verdana";
+    font-size: 14px;
+    height: 26px;
+    text-decoration: none;
+    vertical-align: bottom;
+}
+.zi16 {
+    color: #333333;
+    font-family: "Verdana";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi10 {
+    color: #676767;
+    font-family: "Verdana";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi11 {
+    color: #333333;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi12 {
+    color: #c0c0c0;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 20px;
+}
+.zi13 {
+    color: #70b05a;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 16px;
+}
+.zi14 {
+    color: #4f4f4f;
+    font-family: "宋体";
+    font-size: 12px;
+    line-height: 16px;
+}
+.zi15 {
+    color: #1a66b3;
+    font-family: "宋体";
+    font-size: 14px;
+    line-height: 20px;
+}
+.input_combobox5a {
+    background-color: #ffffff;
+    background-position: center center;
+    border: 1px solid #c1d7ac;
+    color: #000000;
+    font-family: "Verdana";
+    font-size: 12px;
+    height: 23px;
+    padding-left: 3px;
+    padding-top: 3px;
+    width: 290px;
+}
+.chengshi {
+    background-color: #ffffff;
+    color: #000000;
+    font-family: "Verdana","Arial","Helvetica","sans-serif";
+    font-size: 14px;
+    height: 20px;
+    letter-spacing: 1px;
+    text-decoration: none;
+    width: 155px;
+}
+.mask{
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #000;
+    opacity: 0.6;
+    position: fixed;
+}
+.dialog{
+    width: 730px;
+    height: 500px;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -365px;
+    margin-top: -250px;
+}
+
+.changecolor0 {
+	color: #FF0000;
+}
+
+.changecolor1 {
+	color: #D92B0C;
+}
+
+.changecolor2 {
+	color: #379515;
+}
+
+.changecolor3 {
+	color: #00529B;
+}
+
+.changecolor4 {
+	color: #F68A0C;
+}
+
+.changecolor5 {
+	color: #33758F;
+}
