@@ -74,7 +74,7 @@ public class BorrowServlet extends BaseServlet {
 	private void get_user_remain_stock(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		int max_num = Constants.MAX_NUM;
-		long user_id = (Long) request.getSession().getAttribute("user_id");
+		long user_id = Long.valueOf(request.getParameter(Constants.USER_ID));
 		// 只算新建的订单
 		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, "0");
 		if (list != null && list.size() > 0) {

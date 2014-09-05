@@ -39,24 +39,25 @@
 <script type="text/javascript">
 $(document).ready(
 		function() {
-
 			$("#borrow_button").click(
 					function() {
-		$.ajax({
-			type : "post",
-			url : "<%=basePath%>api?servlet=borrow&cmd=get_user_remain_stock",
-			dataType : "json",
-			success : function(data) {
-				var remain_stock = data[0].remain_stock;
-				if(remain_stock > 0){
-					window.location.href="<%=basePath%>/api?servlet=borrow&cmd=prepare_add&id=<%=book.getId()%>";
-															} else {
-																alert("已经借满5本，请还书后再借!");
-															}
-														}
-													});
-										});
+						if(confirm("确定借阅么？")){
+							$.ajax({
+								type : "post",
+								url : "<%=basePath%>api?servlet=borrow&cmd=get_user_remain_stock&user_id=<%=user_id%>",
+								dataType : "json",
+								success : function(data) {
+									var remain_stock = data[0].remain_stock;
+									if(remain_stock > 0){
+										window.location.href="<%=basePath%>/api?servlet=borrow&cmd=prepare_add&id=<%=book.getId()%>";
+									} else {
+										alert("已经借满5本，请还书后再借!");
+									}
+								}
+							});
+						}
 					});
+		});
 </script>
 <script type="text/javascript">
 	function init_err() {
@@ -98,8 +99,7 @@ $(document).ready(
 											<tr>
 												<td width="210" valign="top" height="28"
 													style="PADDING-left:12px;PADDING-top:6px;"
-													class="zi-leibie1"><strong>绘本展示</strong>
-												</td>
+													class="zi-leibie1"><strong>绘本展示</strong></td>
 											</tr>
 										</tbody>
 									</table>
@@ -117,7 +117,8 @@ $(document).ready(
 												<td width="32" valign="top">&nbsp;</td>
 												<td width="296" valign="top"><img width="250"
 													height="250" border="0"
-													src="<%=basePath%>/images/book/<%=book.getImg()%>"></td>
+													src="<%=basePath%>/images/book/<%=book.getImg()%>">
+												</td>
 												<td width="392"><table width="100%" height="28"
 														cellspacing="0" cellpadding="0" border="0">
 														<tbody>
@@ -176,9 +177,8 @@ $(document).ready(
 																		if(book.getStock() > 0){
 																	%>
 																	<div align="left">
-																		<a id="borrow_button"><img
-																			width="86" height="25" border="0"
-																			src="images/jie.gif"> </a> &nbsp;&nbsp;
+																		<a id="borrow_button"><img width="86" height="25"
+																			border="0" src="images/jie.gif"> </a> &nbsp;&nbsp;
 																		<%
 																			}else{
 																		%>
@@ -203,7 +203,8 @@ $(document).ready(
 																<td height="10"></td>
 															</tr>
 														</tbody>
-													</table></td>
+													</table>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -270,7 +271,8 @@ $(document).ready(
 															$$("button").onclick = hide;
 														}
 														hide();
-													</script></td>
+													</script>
+												</td>
 												<td width="19">&nbsp;</td>
 											</tr>
 										</tbody>
@@ -441,8 +443,7 @@ $(document).ready(
 																<tr>
 																	<td class="show"><textarea maxlength="500"
 																			class="input_combobox4a" rows="6" cols="70"
-																			name="content" id="content"></textarea>
-																	</td>
+																			name="content" id="content"></textarea></td>
 																</tr>
 															</tbody>
 														</table>
@@ -471,12 +472,10 @@ $(document).ready(
 
 											</tr>
 										</tbody>
-									</table>
-								</td>
+									</table></td>
 							</tr>
 						</tbody>
-					</table>
-				</td>
+					</table></td>
 			</tr>
 		</tbody>
 	</table>

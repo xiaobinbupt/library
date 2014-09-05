@@ -35,7 +35,7 @@ public class SessionCheckFilter implements Filter {
 	 * (non-Javadoc)
 	 * 
 	 * @see javax.servlet.Filter#doFilter(javax.servlet.ServletRequest,
-	 *      javax.servlet.ServletResponse, javax.servlet.FilterChain)
+	 * javax.servlet.ServletResponse, javax.servlet.FilterChain)
 	 */
 	public void doFilter(ServletRequest arg0, ServletResponse arg1,
 			FilterChain arg2) throws IOException, ServletException {
@@ -47,14 +47,18 @@ public class SessionCheckFilter implements Filter {
 
 		HttpSession session = request.getSession(false);
 		if (servlet.equals("borrow")) {
-			if (session == null || session.getAttribute("user_name") == null) {
-				try {
-					response.sendRedirect(request.getHeader("Referer") + "&err="
-							+ URLEncoder.encode("请先登录!", "UTF-8"));
-				} catch (IOException e) {
-					e.printStackTrace();
+			String cmd = request.getParameter(Constants.CMD);
+			if (!"get_user_remain_stock".equals(cmd)) {
+				if (session == null
+						|| session.getAttribute("user_name") == null) {
+					try {
+						response.sendRedirect(request.getHeader("Referer")
+								+ "&err=" + URLEncoder.encode("请先登录!", "UTF-8"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return;
 				}
-				return;
 			}
 		}
 
