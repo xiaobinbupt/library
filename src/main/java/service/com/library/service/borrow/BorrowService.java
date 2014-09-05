@@ -20,4 +20,6 @@ public interface BorrowService {
 	public long getBorrowsCount(Collection<HibernateExpression> ex);
 
 	public Borrow getBorrowById(long id);
+	
+	public Borrow getBorrowByUserIdBookId(long user_id, long book_id);
 }

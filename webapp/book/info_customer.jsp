@@ -33,26 +33,47 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 <link type="text/css" rel="stylesheet" href="<%=basePath%>/css/css.css">
-<script type="text/javascript" src="<%=basePath%>/js/main.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/main.js"></script>
 <link href="images/favicon.ico" rel="shortcut icon">
-
+<script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
 <script type="text/javascript">
-function init_err() {
-<%if (err != null) {%>
-document.getElementById("login_div_1").style.display = "block";
-	document.getElementById("login_div_2").style.display = "block";
-<%}%>
-}
+$(document).ready(
+		function() {
 
-function check_content()
-{
-	var content = document.getElementById("content").value;
-   if(content == '') {
-    	alert("评论内容不能为空！");
-		return false;
-  }
-   document.getElementById("book_feedback").submit();
-}
+			$("#borrow_button").click(
+					function() {
+		$.ajax({
+			type : "post",
+			url : "<%=basePath%>api?servlet=borrow&cmd=get_user_remain_stock",
+			dataType : "json",
+			success : function(data) {
+				var remain_stock = data[0].remain_stock;
+				if(remain_stock > 0){
+					window.location.href="<%=basePath%>/api?servlet=borrow&cmd=prepare_add&id=<%=book.getId()%>";
+															} else {
+																alert("已经借满5本，请还书后再借!");
+															}
+														}
+													});
+										});
+					});
+</script>
+<script type="text/javascript">
+	function init_err() {
+<%if (err != null) {%>
+	document.getElementById("login_div_1").style.display = "block";
+		document.getElementById("login_div_2").style.display = "block";
+<%}%>
+	}
+
+	function check_content() {
+		var content = document.getElementById("content").value;
+		if (content == '') {
+			alert("评论内容不能为空！");
+			return false;
+		}
+		document.getElementById("book_feedback").submit();
+	}
 </script>
 
 </head>
@@ -77,7 +98,8 @@ function check_content()
 											<tr>
 												<td width="210" valign="top" height="28"
 													style="PADDING-left:12px;PADDING-top:6px;"
-													class="zi-leibie1"><strong>绘本展示</strong></td>
+													class="zi-leibie1"><strong>绘本展示</strong>
+												</td>
 											</tr>
 										</tbody>
 									</table>
@@ -95,8 +117,7 @@ function check_content()
 												<td width="32" valign="top">&nbsp;</td>
 												<td width="296" valign="top"><img width="250"
 													height="250" border="0"
-													src="<%=basePath%>/images/book/<%=book.getImg()%>">
-												</td>
+													src="<%=basePath%>/images/book/<%=book.getImg()%>"></td>
 												<td width="392"><table width="100%" height="28"
 														cellspacing="0" cellpadding="0" border="0">
 														<tbody>
@@ -155,8 +176,7 @@ function check_content()
 																		if(book.getStock() > 0){
 																	%>
 																	<div align="left">
-																		<a onclick="return confirm('您确定要借阅吗？');"
-																			href="<%=basePath%>/api?servlet=borrow&cmd=prepare_add&id=<%=book.getId()%>"><img
+																		<a id="borrow_button"><img
 																			width="86" height="25" border="0"
 																			src="images/jie.gif"> </a> &nbsp;&nbsp;
 																		<%
@@ -183,8 +203,7 @@ function check_content()
 																<td height="10"></td>
 															</tr>
 														</tbody>
-													</table>
-												</td>
+													</table></td>
 											</tr>
 										</tbody>
 									</table>
@@ -229,25 +248,29 @@ function check_content()
 																style="float:right;" id="button">
 														</div>
 													</div> <script type="text/javascript">
-function $(id){
-	return document.getElementById(id);
-}
-var contain=$("contain").innerHTML;
-function hide(){
-	if(contain.length > 200){
-	$("contain").innerHTML=contain.substr(0,400)+"……";
-  }
-	$("button").src="images/quan.jpg";
-  $("button").onclick=show;
-}
-function show(){
-	$("contain").innerHTML=contain;
-	$("button").src="images/bu.jpg";
-  $("button").onclick=hide;
-}
-hide();
-</script>
-												</td>
+														function $$(id) {
+															return document
+																	.getElementById(id);
+														}
+														var contain = $$("contain").innerHTML;
+														function hide() {
+															if (contain.length > 200) {
+																$$("contain").innerHTML = contain
+																		.substr(
+																				0,
+																				400)
+																		+ "……";
+															}
+															$$("button").src = "images/quan.jpg";
+															$$("button").onclick = show;
+														}
+														function show() {
+															$$("contain").innerHTML = contain;
+															$$("button").src = "images/bu.jpg";
+															$$("button").onclick = hide;
+														}
+														hide();
+													</script></td>
 												<td width="19">&nbsp;</td>
 											</tr>
 										</tbody>
@@ -418,7 +441,8 @@ hide();
 																<tr>
 																	<td class="show"><textarea maxlength="500"
 																			class="input_combobox4a" rows="6" cols="70"
-																			name="content" id="content"></textarea></td>
+																			name="content" id="content"></textarea>
+																	</td>
 																</tr>
 															</tbody>
 														</table>
@@ -447,10 +471,12 @@ hide();
 
 											</tr>
 										</tbody>
-									</table></td>
+									</table>
+								</td>
 							</tr>
 						</tbody>
-					</table></td>
+					</table>
+				</td>
 			</tr>
 		</tbody>
 	</table>

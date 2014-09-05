@@ -211,7 +211,7 @@
 																%>
 																<td><div align="center">
 																		<a class="chan"
-																			href="<%=basePath%>/api?servlet=book&cmd=info_customer&info=true&id=<%=borrow.getBook_id()%>"><%=borrow.getBook_name()%></a>
+																			href="<%=basePath%>/api?servlet=book&cmd=info_customer&info=true&book_id=<%=borrow.getBook_id()%>"><%=borrow.getBook_name()%></a>
 																	</div>
 																</td>
 																<%

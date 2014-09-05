@@ -1,6 +1,7 @@
 package com.library.servlet.borrow;
 
 import java.io.IOException;
+import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Date;
@@ -10,6 +11,9 @@ import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 
 import com.library.domain.Book;
 import com.library.domain.Borrow;
@@ -61,7 +65,34 @@ public class BorrowServlet extends BaseServlet {
 			del(request, response);
 		} else if ("upd_status".equals(cmd)) {
 			upd_status(request, response);
+		} else if ("get_user_remain_stock".equals(cmd)) {
+			get_user_remain_stock(request, response);
 		}
+	}
+
+	@SuppressWarnings("unchecked")
+	private void get_user_remain_stock(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		int max_num = Constants.MAX_NUM;
+		long user_id = (Long) request.getSession().getAttribute("user_id");
+		// 只算新建的订单
+		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, "0");
+		if (list != null && list.size() > 0) {
+			for (Borrow borrow : list) {
+				max_num -= borrow.getNum();
+			}
+		}
+		if (max_num < 0) {
+			max_num = 0;
+		}
+		JSONArray ret = new JSONArray();
+		JSONObject j = new JSONObject();
+		j.put("remain_stock", max_num);
+		ret.add(j);
+		PrintWriter out = response.getWriter();
+		out.print(ret.toJSONString());
+		out.flush();
+		out.close();
 	}
 
 	private void upd(HttpServletRequest request, HttpServletResponse response) {
@@ -78,6 +109,14 @@ public class BorrowServlet extends BaseServlet {
 		int old_num = 0;
 		if (id == null || "".equals(id)) {
 			// 新增
+			borrow = borrowService.getBorrowByUserIdBookId(
+					Long.valueOf(user_id), Long.valueOf(book_id));
+			if (borrow != null) {
+				// 重复提交
+				list(request, response);
+				return;
+			}
+
 			borrow = new Borrow();
 			borrow.setUser_id(user_id);
 			borrow.setBook_id(Long.valueOf(book_id));
@@ -347,7 +386,7 @@ public class BorrowServlet extends BaseServlet {
 
 		int max_num = Constants.MAX_NUM;
 		long user_id = (Long) request.getSession().getAttribute("user_id");
-		//只算新建的订单
+		// 只算新建的订单
 		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, "0");
 		if (list != null && list.size() > 0) {
 			for (Borrow borrow : list) {
