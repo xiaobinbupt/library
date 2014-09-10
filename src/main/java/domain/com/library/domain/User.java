@@ -25,11 +25,21 @@ public class User implements Serializable {
 	private String real_name;
 	private int role_id;
 	private String password;
+	private String district;
 	private String address;
 	private String mobile;
 	private Date create_time;
 	private String des;
 	private int borrowed_num;
+	
+	@Column(name = "district")
+	public String getDistrict() {
+		return district;
+	}
+	
+	public void setDistrict(String district) {
+		this.district = district;
+	}
 
 	@Transient
 	public int getBorrowed_num() {

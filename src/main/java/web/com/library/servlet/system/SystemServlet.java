@@ -10,7 +10,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.library.domain.Book;
 import com.library.domain.User;
 import com.library.hibernate.CompareExpression;
 import com.library.hibernate.CompareType;
@@ -56,11 +55,17 @@ public class SystemServlet extends BaseServlet {
 		int page = pages == null ? 1 : Integer.valueOf(pages);
 		String name = request.getParameter(Constants.NAME);
 		String real_name = request.getParameter(Constants.REAL_NAME);
+		String district = request.getParameter(Constants.DISTRICT);
 
 		if (!StringUtil.isEmpty(name)) {
 			ex.add(new CompareExpression("name", "%" + name + "%",
 					CompareType.Like));
 			request.setAttribute("name", name);
+		}
+		if (!StringUtil.isEmpty(district)) {
+			ex.add(new CompareExpression("district", district,
+					CompareType.Equal));
+			request.setAttribute("district", district);
 		}
 		if (!StringUtil.isEmpty(real_name)) {
 			ex.add(new CompareExpression("real_name", "%" + real_name + "%",
@@ -106,6 +111,7 @@ public class SystemServlet extends BaseServlet {
 		String password = request.getParameter(Constants.PASSWORD);
 		String real_name = request.getParameter(Constants.REAL_NAME);
 		String mobile = request.getParameter(Constants.MOBILE);
+		String district = request.getParameter(Constants.DISTRICT);
 		String address = request.getParameter(Constants.ADDRESS);
 		String des = request.getParameter(Constants.DES);
 
@@ -119,7 +125,7 @@ public class SystemServlet extends BaseServlet {
 			// 更新用户
 			user = systemService.getUserById(Long.valueOf(id));
 		}
-
+		user.setDistrict(district);
 		user.setAddress(address);
 		user.setDes(des == null ? "" : des);
 		user.setMobile(mobile);

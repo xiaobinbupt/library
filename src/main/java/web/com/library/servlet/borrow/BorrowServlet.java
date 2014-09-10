@@ -74,16 +74,22 @@ public class BorrowServlet extends BaseServlet {
 	private void get_user_remain_stock(HttpServletRequest request,
 			HttpServletResponse response) throws IOException {
 		int max_num = Constants.MAX_NUM;
-		long user_id = Long.valueOf(request.getParameter(Constants.USER_ID));
-		// 只算新建的订单
-		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, "0");
-		if (list != null && list.size() > 0) {
-			for (Borrow borrow : list) {
-				max_num -= borrow.getNum();
+		String user_id_p = request.getParameter(Constants.USER_ID);
+		if (StringUtil.isNumber(user_id_p)) {
+			long user_id = Long.valueOf(user_id_p);
+			if (user_id > 10) {// 不包括管理员
+				// 只算新建的订单
+				List<Borrow> list = getBorrowList(user_id, null, 1, "0", null,
+						null, "0");
+				if (list != null && list.size() > 0) {
+					for (Borrow borrow : list) {
+						max_num -= borrow.getNum();
+					}
+				}
+				if (max_num < 0) {
+					max_num = 0;
+				}
 			}
-		}
-		if (max_num < 0) {
-			max_num = 0;
 		}
 		JSONArray ret = new JSONArray();
 		JSONObject j = new JSONObject();
@@ -200,7 +206,8 @@ public class BorrowServlet extends BaseServlet {
 
 		int max_num = Constants.MAX_NUM;
 		long user_id = (Long) request.getSession().getAttribute("user_id");
-		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, null);
+		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, null,
+				null);
 		if (list != null && list.size() > 0) {
 			for (Borrow b : list) {
 				if (b.getId() != borrow.getId()) {
@@ -210,8 +217,8 @@ public class BorrowServlet extends BaseServlet {
 		}
 		if (max_num < 0) {
 			max_num = 0;
-		} else if (max_num > book.getStock()) {
-			max_num = book.getStock();
+		} else if (max_num > book.getStock() + borrow.getNum()) {
+			max_num = book.getStock() + borrow.getNum();
 		}
 		request.setAttribute("max_num", max_num);
 
@@ -229,7 +236,8 @@ public class BorrowServlet extends BaseServlet {
 	}
 
 	private List<Borrow> getBorrowList(long user_id, String user_id_p,
-			int role_id, String page, String real_name, String status) {
+			int role_id, String page, String district, String real_name,
+			String status) {
 		Collection<HibernateExpression> ex = new ArrayList<HibernateExpression>();
 		if (role_id != 2) {
 			ex.add(new CompareExpression("user_id", user_id, CompareType.Equal));
@@ -238,15 +246,22 @@ public class BorrowServlet extends BaseServlet {
 			ex.add(new CompareExpression("user_id", Long.valueOf(user_id_p),
 					CompareType.Equal));
 		}
-		if (real_name != null && !"".equals(real_name)) {
+
+		if (!StringUtil.isEmpty(district) || !StringUtil.isEmpty(real_name)) {
 			Collection<HibernateExpression> ex_user = new ArrayList<HibernateExpression>();
-			ex_user.add(new CompareExpression("real_name", "%" + real_name
-					+ "%", CompareType.Like));
+			List<Long> uids = new ArrayList<Long>();
+			if (!StringUtil.isEmpty(district)) {
+				ex_user.add(new CompareExpression("district", district,
+						CompareType.Equal));
+			}
+			if (!StringUtil.isEmpty(real_name)) {
+				ex_user.add(new CompareExpression("real_name", "%" + real_name
+						+ "%", CompareType.Like));
+			}
 			List<User> ul = systemService.getUsers(0, 0, null, true, ex_user);
 			if (ul == null || ul.size() == 0) {
 				return null;
 			}
-			List<Long> uids = new ArrayList<Long>();
 			for (User u : ul) {
 				uids.add(u.getId());
 			}
@@ -264,7 +279,7 @@ public class BorrowServlet extends BaseServlet {
 	}
 
 	private long getBorrowCount(long user_id, String user_id_p, int role_id,
-			String real_name, String status) {
+			String district, String real_name, String status) {
 		Collection<HibernateExpression> ex = new ArrayList<HibernateExpression>();
 		if (role_id != 2) {
 			ex.add(new CompareExpression("user_id", user_id, CompareType.Equal));
@@ -273,15 +288,21 @@ public class BorrowServlet extends BaseServlet {
 			ex.add(new CompareExpression("user_id", Long.valueOf(user_id_p),
 					CompareType.Equal));
 		}
-		if (real_name != null && !"".equals(real_name)) {
+		if (!StringUtil.isEmpty(district) || !StringUtil.isEmpty(real_name)) {
 			Collection<HibernateExpression> ex_user = new ArrayList<HibernateExpression>();
-			ex_user.add(new CompareExpression("real_name", "%" + real_name
-					+ "%", CompareType.Like));
+			List<Long> uids = new ArrayList<Long>();
+			if (!StringUtil.isEmpty(district)) {
+				ex_user.add(new CompareExpression("district", district,
+						CompareType.Equal));
+			}
+			if (!StringUtil.isEmpty(real_name)) {
+				ex_user.add(new CompareExpression("real_name", "%" + real_name
+						+ "%", CompareType.Like));
+			}
 			List<User> ul = systemService.getUsers(0, 0, null, true, ex_user);
 			if (ul == null || ul.size() == 0) {
 				return 0;
 			}
-			List<Long> uids = new ArrayList<Long>();
 			for (User u : ul) {
 				uids.add(u.getId());
 			}
@@ -300,15 +321,22 @@ public class BorrowServlet extends BaseServlet {
 		int role_id = (Integer) request.getSession().getAttribute("role_id");
 		String page = request.getParameter(Constants.PAGE);
 		String real_name = request.getParameter(Constants.REAL_NAME);
+		String district = request.getParameter(Constants.DISTRICT);
 		String status = request.getParameter(Constants.STATUS);
 		long user_id = (Long) request.getSession().getAttribute("user_id");
 		String user_id_p = request.getParameter(Constants.USER_ID);
 
 		List<Borrow> list = getBorrowList(user_id, user_id_p, role_id, page,
-				real_name, status);
-		long total = getBorrowCount(user_id, user_id_p, role_id, real_name,
-				status);
+				district, real_name, status);
+		long total = 0;
+		if (list != null && list.size() > 0) {
+			total = getBorrowCount(user_id, user_id_p, role_id, district,
+					real_name, status);
+		}
 
+		if (district != null && !"".equals(district)) {
+			request.setAttribute("district", district);
+		}
 		if (real_name != null && !"".equals(real_name)) {
 			request.setAttribute("real_name", real_name);
 		}
@@ -386,11 +414,14 @@ public class BorrowServlet extends BaseServlet {
 
 		int max_num = Constants.MAX_NUM;
 		long user_id = (Long) request.getSession().getAttribute("user_id");
-		// 只算新建的订单
-		List<Borrow> list = getBorrowList(user_id, null, 1, "0", null, "0");
-		if (list != null && list.size() > 0) {
-			for (Borrow borrow : list) {
-				max_num -= borrow.getNum();
+		if (user_id > 10) {//不算管理员
+			// 只算新建的订单
+			List<Borrow> list = getBorrowList(user_id, null, 1, "0", null,
+					null, "0");
+			if (list != null && list.size() > 0) {
+				for (Borrow borrow : list) {
+					max_num -= borrow.getNum();
+				}
 			}
 		}
 		if (max_num < 0) {

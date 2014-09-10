@@ -77,12 +77,29 @@
 		}
 		document.getElementById("regist").submit();
 	}
+	
+	function init_district(){
+		<%
+			if(user != null){
+		%>
+		var district = document.getElementById("district");
+		var options = district.options;
+		for(var i = 0; i < options.length; i++){
+			if(options[i].value == '<%=user.getDistrict()%>'){
+				options[i].selected = "selected";
+				break;
+			}
+		}
+		<%
+			}
+		%>
+	}
 </script>
 
 </head>
 
 <body marginwidth="0" marginheight="0" bottommargin="0" rightmargin="0"
-	topmargin="0" leftmargin="0">
+	topmargin="0" leftmargin="0" onload="init_district();">
 	<table width="950" height="81" align="center" cellspacing="0"
 		cellpadding="0" border="0">
 		<tbody>
@@ -340,6 +357,32 @@
 															cellspacing="0" cellpadding="0" border="0">
 															<tbody>
 																<tr>
+																	<td width="80" class="zi16"><div align="center">行政区</div>
+																	</td>
+																	<td width="520" class="zi16">
+																		<select class="input_combobox5" id="district" name="district">
+																			<option value="长安区">长安区（星期一送书）</option>
+																			<option value="裕华区">裕华区（星期二送书）</option>
+																			<option value="桥西区">桥西区（星期三送书）</option>
+																			<option value="桥东区">桥东区（星期四送书）</option>
+																			<option value="新华区">新华区（星期五送书）</option>
+																		</select>
+																	</td>
+																</tr>
+															</tbody>
+														</table>
+														<table width="100%" cellspacing="0" cellpadding="0"
+															border="0">
+															<tbody>
+																<tr>
+																	<td height="10"></td>
+																</tr>
+															</tbody>
+														</table>
+														<table width="600" height="27" align="center"
+															cellspacing="0" cellpadding="0" border="0">
+															<tbody>
+																<tr>
 																	<td width="80" class="zi16"><div align="center">地址</div>
 																	</td>
 																	<td width="520" class="zi16"><input type="text"
@@ -347,6 +390,11 @@
 																		value="<%=user == null ? "" : user.getAddress()%>"
 																		<%=info == null ? "" : "readonly=\"\""%> /> <font
 																		color="989898">&nbsp; </font></td>
+																</tr>
+																<tr>
+																	<td width="80" class="zi16"></td>
+																	<td width="520" class="zi16"><font
+																		color="red">可选择家庭地址，工作单位地址，二环内方便接收图书的地方即可</font></td>
 																</tr>
 															</tbody>
 														</table>

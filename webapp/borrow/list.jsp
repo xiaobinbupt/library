@@ -9,6 +9,7 @@
 	Integer role_id = (Integer) request.getSession().getAttribute("role_id");
 	String status_value = (String)request.getAttribute("status");
 	String real_name = (String)request.getAttribute("real_name");
+	String district = (String)request.getAttribute("district");
 	
 	int total_pages = (Integer)request.getAttribute("total_pages");
 	int page_now = (Integer)request.getAttribute("page");
@@ -40,7 +41,18 @@ function init_data() {
 				break;
 			}
 		}
-<%}%>
+	<%}%>
+
+		<%if(district != null){%>
+			var district = document.getElementById("district");
+			var options = district.options;
+			for(var i = 0; i < options.length; i++){
+				if(options[i].value == '<%=district%>'){
+					options[i].selected = "selected";
+					break;
+				}
+			}
+		<%}%>
 	}
 	
 	function page_up() {
@@ -86,12 +98,21 @@ function init_data() {
 		<form id="search" name="search" method="post"
 			action="<%=basePath%>/api?servlet=borrow&cmd=list">
 			<input type="hidden" id="page" name="page" value="<%=page_now%>">
-			<table width="50%" border="1" align="center">
+			<table width="80%" border="1" align="center">
 				<tr>
-					<td width="15%">真实姓名:</td>
-					<td><input name="real_name" type="text" id="real_name"
-						value="<%=real_name == null ? "" : real_name%>" />
+					<td width="5%">区:</td>
+					<td><select id="district" name="district">
+							<option value="">请选择</option>
+							<option value="长安区">长安区（星期一送书）</option>
+							<option value="裕华区">裕华区（星期二送书）</option>
+							<option value="桥西区">桥西区（星期三送书）</option>
+							<option value="桥东区">桥东区（星期四送书）</option>
+							<option value="新华区">新华区（星期五送书）</option>
+					</select>
 					</td>
+					<td width="10%">真实姓名:</td>
+					<td><input name="real_name" type="text" id="real_name"
+						value="<%=real_name == null ? "" : real_name%>" /></td>
 					<td width="10%">状态:</td>
 					<td width="20%"><select name="status" id="status">
 							<option value="">请选择..</option>
@@ -99,9 +120,9 @@ function init_data() {
 							<option value="1">确认</option>
 							<option value="2">已借出</option>
 							<option value="3">已归还</option>
-					</select></td>
-					<td width="5%"><input type="submit" value="查询" />
+					</select>
 					</td>
+					<td width="5%"><input type="submit" value="查询" /></td>
 				</tr>
 			</table>
 		</form>
@@ -116,8 +137,7 @@ function init_data() {
 				onclick="select_all(true);">/<input type="button" value="取消"
 				onclick="select_all(false);">&nbsp;&nbsp;&nbsp;&nbsp; <input
 				type="button" value="借出" onclick="upd_status(2);">&nbsp;&nbsp;&nbsp;&nbsp;
-				<input type="button" value="归还" onclick="upd_status(3);">
-			</td>
+				<input type="button" value="归还" onclick="upd_status(3);"></td>
 			<td align="right" colspan="7">
 				<%
 					if (page_now > 1) {
@@ -148,7 +168,8 @@ function init_data() {
 		%>
 		<tr align="center">
 			<td><input type="checkbox" value="<%=borrow.getId()%>"
-				name="checkbox"></td>
+				name="checkbox">
+			</td>
 			<td><%=borrow.getUser_name()%></td>
 			<td><a
 				href="<%=basePath%>/api?servlet=system&cmd=prepare_upd_user&info=true&id=<%=borrow.getUser_id()%>"><%=borrow.getReal_name()%></a>

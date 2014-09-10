@@ -23,6 +23,7 @@ public class Constants {
 	public static final String CONTENT = "content";
 	public static final String USER_ID = "user_id";
 	public static final String UPD_STATUS = "upd_status";
+	public static final String DISTRICT = "district";
 	public static String NAME = "name";
 	public static int PAGE_SIZE = 30;
 	public static int PAGE_SIZE_10 = 10;

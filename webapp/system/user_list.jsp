@@ -9,6 +9,7 @@
 	
 	String name = (String)request.getAttribute("name");
 	String real_name = (String)request.getAttribute("real_name");
+	String district = (String)request.getAttribute("district");
 	
 	int total_pages = (Integer)request.getAttribute("total_pages");
 	int page_now = (Integer)request.getAttribute("page");
@@ -42,21 +43,47 @@
 		page_now.value =<%=page_now + 1%>;
 		document.getElementById("search").submit();
 	}
+	
+	function init_district(){
+		<%
+			if(district != null){
+		%>
+		var district = document.getElementById("district");
+		var options = district.options;
+		for(var i = 0; i < options.length; i++){
+			if(options[i].value == '<%=district%>'){
+				options[i].selected = "selected";
+				break;
+			}
+		}
+		<%
+			}
+		%>
+	}
 </script>
 </head>
 
-<body>
+<body onload="init_district();">
 	<jsp:include page="/top_admin.jsp"></jsp:include>
 	<div align="center">
 		<form id="search" name="search" method="post"
 			action="<%=basePath%>/api?servlet=system&cmd=user_list">
 			<input type="hidden" id="page" name="page" value="<%=page_now%>">
-			<table width="50%" border="1" align="center">
+			<table width="80%" border="1" align="center">
 				<tr>
-					<td width="15%">用户名:</td>
+					<td width="5%">区:</td>
+					<td><select id="district" name="district">
+							<option value="">请选择</option>
+							<option value="长安区">长安区（星期一送书）</option>
+							<option value="裕华区">裕华区（星期二送书）</option>
+							<option value="桥西区">桥西区（星期三送书）</option>
+							<option value="桥东区">桥东区（星期四送书）</option>
+							<option value="新华区">新华区（星期五送书）</option>
+						</select></td>
+					<td width="10%">用户名:</td>
 					<td><input name="name" type="text" id="name"
 						value="<%=name == null ? "" : name%>" /></td>
-					<td width="15%">真实姓名:</td>
+					<td width="10%">真实姓名:</td>
 					<td><input name="real_name" type="text" id="real_name"
 						value="<%=real_name == null ? "" : real_name%>" /></td>
 					<td width="5%"><input type="submit" value="查询" /></td>
@@ -86,6 +113,7 @@
 		<tr align="center">
 			<td width="5%">用户名</td>
 			<td width="5%">姓名</td>
+			<td width="5%">区</td>
 			<td width="15%">地址</td>
 			<td width="4%">电话</td>
 			<td width="4%">创建时间</td>
@@ -98,6 +126,7 @@
 		<tr align="center">
 			<td><%=user.getName()%></td>
 			<td><%=user.getReal_name()%></td>
+			<td><%=user.getDistrict()%></td>
 			<td><%=user.getAddress()%></td>
 			<td><%=user.getMobile()%></td>
 			<td><%=user.getCreate_time().toLocaleString()%></td>
