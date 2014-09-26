@@ -38,7 +38,7 @@
 			alert('用户名不能为空!');
 			return;
 		}
-		if (name.length < 6) {
+		if (name.length < 3) {
 			alert('用户名太短!');
 			return;
 		}
@@ -213,7 +213,7 @@
 																<tr>
 																	<td width="80" class="zi16">&nbsp;</td>
 																	<td width="520" class="zi10"><font color="989898">最少
-																			6 个字符</font>
+																			3 个字符</font>
 																	</td>
 																</tr>
 															</tbody>

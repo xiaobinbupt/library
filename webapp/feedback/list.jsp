@@ -132,9 +132,7 @@
 														color="00529B"><%=f.getUser_name()%></font>
 														&nbsp;&nbsp;&nbsp;&nbsp;时间：<font color="00529B"><%=f.getCreate_time().toLocaleString()%></font>
 												</font>&nbsp;&nbsp;&nbsp;&nbsp; <%
- 	if ((role_id != null && role_id == 2)
- 				|| (f.getUser_id() > 0 && user_id != null && f
- 						.getUser_id() == user_id)) {
+ 	if (role_id != null && role_id == 2) {
  %> <a
 													href="<%=basePath%>/api?servlet=feedback&cmd=del&id=<%=f.getId()%>">删除</a>
 													<%
