@@ -4,6 +4,8 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
@@ -12,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.collections.comparators.ComparatorChain;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -270,6 +273,9 @@ public class BorrowServlet extends BaseServlet {
 		if (status != null && !"".equals(status)) {
 			ex.add(new CompareExpression("status", Integer.valueOf(status),
 					CompareType.Equal));
+		} else {
+			// 默认不显示已归还状态的订单
+			ex.add(new CompareExpression("status", 3, CompareType.NotEqual));
 		}
 
 		List<Borrow> list = borrowService.getBorrows(
@@ -311,6 +317,9 @@ public class BorrowServlet extends BaseServlet {
 		if (status != null && !"".equals(status)) {
 			ex.add(new CompareExpression("status", Integer.valueOf(status),
 					CompareType.Equal));
+		} else {
+			// 默认不显示已归还状态的订单
+			ex.add(new CompareExpression("status", 3, CompareType.NotEqual));
 		}
 
 		long total = borrowService.getBorrowsCount(ex);
@@ -375,6 +384,17 @@ public class BorrowServlet extends BaseServlet {
 		if (list == null) {
 			list = new ArrayList<Borrow>();
 		}
+
+		// 按用户名排序
+		Collections.sort(list, new Comparator() {
+
+			@Override
+			public int compare(Object o1, Object o2) {
+				return ((Borrow) o1).getUser_name().compareTo(
+						((Borrow) o2).getUser_name());
+			}
+		});
+
 		request.setAttribute("list", list);
 		if (role_id != 2) {
 			List<String> ages = bookService.getAges();
@@ -414,7 +434,7 @@ public class BorrowServlet extends BaseServlet {
 
 		int max_num = Constants.MAX_NUM;
 		long user_id = (Long) request.getSession().getAttribute("user_id");
-		if (user_id > 10) {//不算管理员
+		if (user_id > 10) {// 不算管理员
 			// 只算新建的订单
 			List<Borrow> list = getBorrowList(user_id, null, 1, "0", null,
 					null, "0");
