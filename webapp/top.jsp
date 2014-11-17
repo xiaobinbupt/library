@@ -25,7 +25,7 @@
 <!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
-<link type="text/css" rel="stylesheet" href="<%=basePath%>/css/css.css">
+<link type="text/css" rel="stylesheet" href="<%=basePath%>css/css.css">
 <link href="images/favicon.ico" rel="shortcut icon">
 
 </head>
@@ -40,61 +40,48 @@
 		</tbody>
 	</table>
 	<table width="950" height="38"
-		background="<%=basePath%>/images/bg6.gif" align="center"
+		background="<%=basePath%>images/bg6.gif" align="center"
 		cellspacing="0" cellpadding="0" border="0">
 		<tbody>
 			<tr>
 				<td width="10" class="zi-banner"><img width="10" height="38"
-					src="<%=basePath%>/images/zuo.gif">
+					src="<%=basePath%>images/zuo.gif">
 				</td>
 				<td width="12" class="zi-banner"></td>
-				<td width="70" class="zi-banner"><a class="zi-banner" href="#"><strong><font
-							color="#ffffff">借阅首页</font> </strong> </a>
+				<td width="94" class="zi-banner">
+					<a class="zi-banner" href="<%=basePath%>api?servlet=book&cmd=new_book_list">
+					<strong><font color="#ffffff">新书推荐</font></strong> </a>
 				</td>
-				<td width="104" background="<%=basePath%>/images/bg4.gif"
-					class="zi-banner">
-					<div align="center">
-						<a class="zi-banner" href="rule.jsp"><strong><font
-								color="#ffffff">计划及价格</font> </strong> </a>
-					</div>
+				<td width="94" class="zi-banner">
+					<a class="zi-banner" href="<%=basePath%>api?servlet=book&cmd=list&search=1">
+					<strong><font color="#ffffff">图书列表</font> </strong> </a>
 				</td>
-				<td width="110" background="<%=basePath%>/images/bg4.gif"
-					class="zi-banner">
-					<div align="center">
-						<a class="zi-banner" href="introduce.jsp"><strong><font
-								color="#ffffff">为什么选择绘本阅读</font> </strong> </a>
-					</div>
-				</td>
-				<td width="104" background="<%=basePath%>/images/bg4.gif"
-					class="zi-banner">
-					<div align="center">
-						<a class="zi-banner"
-							href="<%=basePath%>/api?servlet=feedback&cmd=list"><strong><font
-								color="#ffffff">意见及建议</font> </strong> </a>
-					</div>
+				<td width="94" class="zi-banner">
+					<a class="zi-banner" href="<%=basePath%>api?servlet=feedback&cmd=list">
+					<strong><font color="#ffffff">意见及建议</font></strong> </a>
 				</td>
 				<td width="342" class="zi-banner"><div align="right">
 						<%
 							if (user_name != null && !"".equals(user_name)) {
 						%>
 						<img width="17" height="38" align="absmiddle"
-							src="<%=basePath%>/images/line1.gif"><font color="#FFFFFF">欢迎您:&nbsp;<a
+							src="<%=basePath%>images/line1.gif"><font color="#FFFFFF">欢迎您:&nbsp;<a
 							class="zi-banner"
-							href="<%=basePath%>/api?servlet=system&cmd=prepare_upd_user"><font
+							href="<%=basePath%>api?servlet=system&cmd=prepare_upd_user"><font
 								color="#FFFFFF"><%=user_name%></font> </a>
 						</font> &nbsp;&nbsp;<a class="zi-banner"
-							href="<%=basePath%>/api?servlet=borrow&cmd=list"><font
+							href="<%=basePath%>api?servlet=borrow&cmd=list"><font
 							color="#FFFFFF">订阅列表</font> </a> &nbsp;&nbsp;<a class="zi-banner"
-							href="<%=basePath%>/api?servlet=system&cmd=logout"><font
+							href="<%=basePath%>api?servlet=system&cmd=logout"><font
 							color="#FFFFFF">退出</font> </a>
 						<%
 							} else {
 						%>
 						<img width="17" height="38" align="absmiddle"
-							src="<%=basePath%>/images/line1.gif"> <a class="zi-banner"
+							src="<%=basePath%>images/line1.gif"> <a class="zi-banner"
 							onclick="login_display();"><font color="#FFFFFF">登录</font> </a>&nbsp;&nbsp;<a
 							class="zi-banner"
-							href="<%=basePath%>/api?servlet=system&cmd=prepare_regist"><font
+							href="<%=basePath%>api?servlet=system&cmd=prepare_regist"><font
 							color="#FFFFFF">注册</font> </a>
 						<%
 							}
@@ -103,7 +90,7 @@
 				</td>
 				<td width="12" class="zi-banner">&nbsp;</td>
 				<td width="10" class="zi-banner"><img width="10" height="38"
-					src="<%=basePath%>/images/you.gif">
+					src="<%=basePath%>images/you.gif">
 				</td>
 			</tr>
 		</tbody>

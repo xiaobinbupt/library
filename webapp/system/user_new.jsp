@@ -364,7 +364,6 @@
 																			<option value="长安区">长安区（星期一送书）</option>
 																			<option value="裕华区">裕华区（星期二送书）</option>
 																			<option value="桥西区">桥西区（星期三送书）</option>
-																			<option value="桥东区">桥东区（星期四送书）</option>
 																			<option value="新华区">新华区（星期五送书）</option>
 																		</select>
 																	</td>

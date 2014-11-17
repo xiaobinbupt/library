@@ -49,7 +49,6 @@ $(document).ready(
 								success : function(data) {
 									var remain_stock = data[0].remain_stock;
 									if(remain_stock > 0){
-										window.location.href="<%=basePath%>/api?servlet=borrow&cmd=prepare_add&id=<%=book.getId()%>";
 									} else {
 										alert("已经借满5本，请还书后再借!");
 									}

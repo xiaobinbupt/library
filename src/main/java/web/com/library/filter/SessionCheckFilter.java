@@ -60,6 +60,25 @@ public class SessionCheckFilter implements Filter {
 					return;
 				}
 			}
+		} else if (servlet.equals("system")) {
+			String cmd = request.getParameter(Constants.CMD);
+			if ("user_list".equals(cmd) || "upd_user".equals(cmd)
+					|| "prepare_upd_user".equals(cmd)) {
+				if (session == null
+						|| session.getAttribute("user_name") == null) {
+					String referer = request.getHeader("Referer");
+					if (referer == null || "".equals(referer)) {
+						referer = "api?servlet=book&cmd=list";
+					}
+					try {
+						response.sendRedirect(referer + "&err="
+								+ URLEncoder.encode("请先登录!", "UTF-8"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return;
+				}
+			}
 		}
 
 		arg2.doFilter(request, response);

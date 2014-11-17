@@ -44,15 +44,15 @@ var bannerAD=new Array();
    window.open(theURL,winName,features);
   }
   
-	function page_up() {
+  function page_up() {
 		var page_now = document.getElementById("page");
-		page_now.value =<%=page_now - 1%>;
+		page_now.value = page_now.value - 1;
 		document.getElementById("search").submit();
 	}
 
 	function page_down() {
 		var page_now = document.getElementById("page");
-		page_now.value =<%=page_now + 1%>;
+		page_now.value = Number(page_now.value) + 1;
 		document.getElementById("search").submit();
 	}
   

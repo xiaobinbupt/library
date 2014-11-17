@@ -1,9 +1,6 @@
 package com.library.servlet.feedback;
 
 import java.io.IOException;
-import java.net.URLEncoder;
-import java.util.ArrayList;
-import java.util.Collection;
 import java.util.Date;
 import java.util.List;
 
@@ -11,18 +8,12 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.library.domain.Book;
 import com.library.domain.FeedBack;
 import com.library.domain.User;
-import com.library.hibernate.CompareExpression;
-import com.library.hibernate.CompareType;
-import com.library.hibernate.HibernateExpression;
-import com.library.service.book.BookService;
 import com.library.service.feedback.FeedBackService;
 import com.library.service.system.SystemService;
 import com.library.servlet.BaseServlet;
 import com.library.util.Constants;
-import com.library.util.StringUtil;
 
 public class FeedBackServlet extends BaseServlet {
 
@@ -30,12 +21,6 @@ public class FeedBackServlet extends BaseServlet {
 
 	public void setSystemService(SystemService systemService) {
 		this.systemService = systemService;
-	}
-
-	private BookService bookService;
-
-	public void setBookService(BookService bookService) {
-		this.bookService = bookService;
 	}
 
 	private FeedBackService feedBackService;
@@ -105,13 +90,6 @@ public class FeedBackServlet extends BaseServlet {
 			total_pages++;
 		}
 		request.setAttribute("total_pages", total_pages);
-
-		List<String> ages = bookService.getAges();
-		request.setAttribute("ages", ages);
-		List<String> pubs = bookService.getPubs();
-		request.setAttribute("pubs", pubs);
-		List<String> authors = bookService.getAuthors();
-		request.setAttribute("authors", authors);
 
 		direct(request, response, "/feedback/list.jsp");
 	}

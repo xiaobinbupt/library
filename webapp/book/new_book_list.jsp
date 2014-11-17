@@ -9,10 +9,6 @@
 	List<Book> list = (List<Book>)request.getAttribute("list");
 	List<Category> categorys = (List<Category>) request
 			.getAttribute("categorys");
-	String name = (String)request.getAttribute("name");
-	String age_begin = (String)request.getAttribute("age_begin");
-	String age_end = (String)request.getAttribute("age_end");
-	String category = (String)request.getAttribute("category");
 	
 	int total_pages = (Integer)request.getAttribute("total_pages");
 	int page_now = (Integer)request.getAttribute("page");
@@ -41,15 +37,6 @@
 
 <script type="text/javascript">
 	function init_data() {
-<%if(category != null){%>
-		var category = document.getElementById("category");
-		for ( var i = 0; i < category.options.length; i++) {
-			if (category.options[i].value =='<%=category%>') {
-				category.options[i].selected = true;
-				break;
-			}
-		}
-<%}%>
 <%if(err != null){%>
 	document.getElementById("login_div_1").style.display = "block";
 		document.getElementById("login_div_2").style.display = "block";
@@ -65,33 +52,6 @@
 	function page_down() {
 		var page_now = document.getElementById("page");
 		page_now.value = Number(page_now.value) + 1;
-		document.getElementById("search").submit();
-	}
-
-	function book_query() {
-		var age_begin = document.getElementById("age_begin").value;
-		var age_end = document.getElementById("age_end").value;
-		if(age_begin != ""){
-			if(!Number(age_begin) ||　age_begin <= 0){
-				alert("年龄请输入大于0的数字!");
-				return false;
-			}
-		}
-		if(age_end != ""){
-			if(!Number(age_end) || age_begin <= 0){
-				alert("年龄请输入大于0的数字!");
-				return false;
-			}
-		}
-		
-		if(Number(age_begin) && Number(age_end)){
-			if(parseInt(age_end) < parseInt(age_begin)){
-				alert("结束年龄不能小于开始年龄!");
-				return false;
-			}
-		}
-		
-		document.getElementById("page").value = 1;
 		document.getElementById("search").submit();
 	}
 </script>
@@ -123,42 +83,9 @@
 							</tr>
 						</tbody>
 					</table>
-					<table width="100%" cellspacing="0" cellpadding="0" border="0">
-						<tbody>
-							<tr>
-								<td height="10"></td>
-							</tr>
-						</tbody>
-					</table>
-					<form action="<%=basePath%>api?servlet=book&cmd=list&search=1"
+					<form action="<%=basePath%>api?servlet=book&cmd=new_book_list"
 						name="search" method="post" id="search">
 						<input type="hidden" id="page" name="page" value="<%=page_now%>">
-						<table width="100%" align="center" cellspacing="0" cellpadding="0"
-							border="0">
-							<tbody>
-								<tr>
-									<td valign="top" height="31" bgcolor="efefef"
-										style="PADDING-left:13px;PADDING-top:4px;" class="zi-leibie2">
-										年龄<input class="zi-leibie4" style="width: 30" type="text" name="age_begin" id="age_begin" value="<%=age_begin == null ? "" : age_begin%>">-
-										    <input class="zi-leibie4" style="width: 30" type="text" name="age_end" id="age_end" value="<%=age_end == null ? "" : age_end%>">岁
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										分类<select name="category" id="category">
-											<option value="">全部</option>
-											<%
-												for (Category c : categorys) {
-											%>
-											<option value="<%=c.getId()%>"><%=c.getName()%>
-											</option>
-											<%
-												}
-											%>
-										</select>
-										&nbsp;&nbsp;&nbsp;&nbsp;
-										名称<input class="zi-leibie4"  style="width: 200"type="text" name="name" value="<%=name == null ? "" : name%>">
-										&nbsp;&nbsp;&nbsp;&nbsp;<input type="button" value="搜索" onclick="book_query();"></td>
-								</tr>
-							</tbody>
-						</table>
 					</form>
 					<table width="730" height="140" bgcolor="D5E2B7" cellspacing="1"
 						cellpadding="0" border="0">
@@ -171,7 +98,7 @@
 											<tr>
 												<td width="210" valign="top" height="23"
 													style="PADDING-left:12px;PADDING-top:6px;"
-													class="zi-leibie1"><strong>推荐绘本</strong>
+													class="zi-leibie1"><strong>新书推荐</strong>
 												</td>
 												<td valign="top" height="23"
 													style="PADDING-left:12px;PADDING-top:6px;"

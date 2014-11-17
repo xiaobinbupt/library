@@ -60,6 +60,10 @@
 			}
 		%>
 	}
+	
+	function show_pwd(pwd){
+		alert(pwd);
+	}
 </script>
 </head>
 
@@ -119,6 +123,7 @@
 			<td width="4%">创建时间</td>
 			<td width="5%">描述</td>
 			<td width="3%">订单</td>
+			<td width="3%">密码</td>
 		</tr>
 		<%
 			for (User user : list) {
@@ -133,6 +138,7 @@
 			<td><%=user.getDes()%></td>
 			<td><a
 				href="<%=basePath%>/api?servlet=borrow&cmd=list&user_id=<%=user.getId()%>">查看</a></td>
+			<td><input type="button" value="查看" onclick="show_pwd('<%=user.getPassword()%>');"></td>
 		</tr>
 		<%
 			}

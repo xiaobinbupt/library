@@ -14,7 +14,6 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import org.apache.commons.collections.comparators.ComparatorChain;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -25,7 +24,6 @@ import com.library.hibernate.CompareExpression;
 import com.library.hibernate.CompareType;
 import com.library.hibernate.HibernateExpression;
 import com.library.hibernate.InExpression;
-import com.library.service.book.BookService;
 import com.library.service.borrow.BorrowService;
 import com.library.service.system.SystemService;
 import com.library.servlet.BaseServlet;
@@ -38,12 +36,6 @@ public class BorrowServlet extends BaseServlet {
 
 	public void setBorrowService(BorrowService borrowService) {
 		this.borrowService = borrowService;
-	}
-
-	private BookService bookService;
-
-	public void setBookService(BookService bookService) {
-		this.bookService = bookService;
 	}
 
 	private SystemService systemService;
@@ -226,12 +218,6 @@ public class BorrowServlet extends BaseServlet {
 		request.setAttribute("max_num", max_num);
 
 		if (role_id != 2) {
-			List<String> ages = bookService.getAges();
-			request.setAttribute("ages", ages);
-			List<String> pubs = bookService.getPubs();
-			request.setAttribute("pubs", pubs);
-			List<String> authors = bookService.getAuthors();
-			request.setAttribute("authors", authors);
 			direct(request, response, "/borrow/borrow_new.jsp");
 		} else {
 			direct(request, response, "/borrow/borrow.jsp");
@@ -326,6 +312,7 @@ public class BorrowServlet extends BaseServlet {
 		return total;
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	private void list(HttpServletRequest request, HttpServletResponse response) {
 		int role_id = (Integer) request.getSession().getAttribute("role_id");
 		String page = request.getParameter(Constants.PAGE);
@@ -397,12 +384,6 @@ public class BorrowServlet extends BaseServlet {
 
 		request.setAttribute("list", list);
 		if (role_id != 2) {
-			List<String> ages = bookService.getAges();
-			request.setAttribute("ages", ages);
-			List<String> pubs = bookService.getPubs();
-			request.setAttribute("pubs", pubs);
-			List<String> authors = bookService.getAuthors();
-			request.setAttribute("authors", authors);
 			direct(request, response, "/borrow/list_customer.jsp");
 		} else {
 			direct(request, response, "/borrow/list.jsp");
@@ -451,12 +432,6 @@ public class BorrowServlet extends BaseServlet {
 		}
 		request.setAttribute("max_num", max_num);
 
-		List<String> ages = bookService.getAges();
-		request.setAttribute("ages", ages);
-		List<String> pubs = bookService.getPubs();
-		request.setAttribute("pubs", pubs);
-		List<String> authors = bookService.getAuthors();
-		request.setAttribute("authors", authors);
 		direct(request, response, "/borrow/borrow_new.jsp");
 	}
 

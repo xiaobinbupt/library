@@ -24,14 +24,17 @@ public class Constants {
 	public static final String USER_ID = "user_id";
 	public static final String UPD_STATUS = "upd_status";
 	public static final String DISTRICT = "district";
-	public static String NAME = "name";
-	public static int PAGE_SIZE = 30;
-	public static int PAGE_SIZE_10 = 10;
-	public static String SERVLET = "servlet";
-	public static String CMD = "cmd";
-	public static String AUTHOR = "author";
-	public static String TYPE = "type";
-	public static String AGE = "age";
-	public static String PUB = "pub";
-	public static String PAGE = "page";
+	public static final String NAME = "name";
+	public static final int PAGE_SIZE = 30;
+	public static final int PAGE_SIZE_10 = 10;
+	public static final String SERVLET = "servlet";
+	public static final String CMD = "cmd";
+	public static final String AUTHOR = "author";
+	public static final String TYPE = "type";
+	public static final String AGE = "age";
+	public static final String AGE_BEGIN = "age_begin";
+	public static final String AGE_END = "age_end";
+	public static final String PUB = "pub";
+	public static final String PAGE = "page";
+	public static final String CATEGORY = "category";
 }

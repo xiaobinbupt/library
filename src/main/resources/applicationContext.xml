@@ -46,6 +46,8 @@
 		<property name="annotatedClasses">
 			<list> 
 				<value>com.library.domain.Book</value>
+				<value>com.library.domain.NewBook</value>
+				<value>com.library.domain.Category</value>
 				<value>com.library.domain.Borrow</value>
 				<value>com.library.domain.User</value>
 				<value>com.library.domain.FeedBack</value>

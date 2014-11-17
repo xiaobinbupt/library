@@ -6,6 +6,8 @@
 			+ request.getServerName() + ":" + request.getServerPort()
 			+ path + "/";
 	Book book = (Book) request.getAttribute("book");
+	List<Category> categorys = (List<Category>) request
+			.getAttribute("categorys");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -24,9 +26,27 @@
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
 
+<script type="text/javascript">
+	function init_data() {
+		<%
+		if(book != null){
+		%>
+		var category = document.getElementById("category");
+		for ( var i = 0; i < category.options.length; i++) {
+			if (category.options[i].value =='<%=book.getCategory()%>') {
+				category.options[i].selected = true;
+				break;
+			}
+		}
+		<%
+		}
+		%>
+	}
+</script>
+
 </head>
 
-<body>
+<body onload="init_data();">
 	<form id="form1" name="form1" method="post"
 		action="<%=basePath%>/api?servlet=book&cmd=upd">
 		<input type="hidden" name="id"
@@ -69,6 +89,22 @@
 				</td>
 			</tr>
 			<tr>
+				<td>分类:</td>
+				<td>
+					<select id="category" name="category">
+					<%
+						if(categorys != null){
+							for(Category c : categorys){
+					%>
+						<option value="<%=c.getId()%>"><%=c.getName() %></option>
+					<%
+							}
+						}
+					%>
+					</select>
+				</td>
+			</tr>
+			<tr>
 				<td>出版社:</td>
 				<td><input name="pub" type="text" id="name6"
 					value="<%=book == null ? "" : book.getPub()%>" size="100%" />
@@ -77,7 +113,7 @@
 			<tr>
 				<td>适读年龄:</td>
 				<td><input name="age" type="text" id="name7"
-					value="<%=book == null ? "" : book.getAge()%>" size="100%" />
+					value="<%=book == null ? "" : book.getAge()%>" size="50%" /><font color="red">"-"分隔，例如3-9</font>
 				</td>
 			</tr>
 			<tr>
