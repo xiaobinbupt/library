@@ -164,7 +164,11 @@ public class BookServlet extends BaseServlet {
 			for (FeedBackBook f : list) {
 				if (f.getUser_id() > 0) {
 					User u = systemService.getUserById(f.getUser_id());
-					f.setUser_name(u.getName());
+					if(u != null){
+						f.setUser_name(u.getName());
+					}else{
+						f.setUser_name("游客");
+					}
 				} else {
 					f.setUser_name("游客");
 				}
