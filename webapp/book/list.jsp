@@ -150,8 +150,6 @@
 			<td>ISDN</td>
 			<td>名称</td>
 			<td>作者</td>
-			<td>类型</td>
-			<td>分类</td>
 			<td>出版社</td>
 			<td>年龄</td>
 			<td>数量</td>
@@ -168,20 +166,18 @@
 			<td><%=book.getIsdn()%></td>
 			<td><%=book.getName()%></td>
 			<td><%=book.getAuthor()%></td>
-			<td><%=book.getType()%></td>
-			<td><%=book.getCategory_name()%></td>
 			<td><%=book.getPub()%></td>
 			<td><%=book.getAge()%></td>
 			<td><%=book.getNum()%></td>
 			<td><%=book.getStock()%></td>
 			<td><a
-				href="<%=basePath%>/api?servlet=book&cmd=prepare_upd&id=<%=book.getId()%>">修改</a>
+				href="<%=basePath%>/api?servlet=book&cmd=prepare_upd&id=<%=book.getId()%>&page=<%=page_now%>">修改</a>
 			</td>
 			<td><a
 				href="<%=basePath%>/api?servlet=book&cmd=prepare_upd_img&id=<%=book.getId()%>">配图</a>
 			</td>
 			<td><a
-				href="<%=basePath%>/api?servlet=book&cmd=del&id=<%=book.getId()%>">删除</a>
+				href="<%=basePath%>/api?servlet=book&cmd=del&id=<%=book.getId()%>&page=<%=page_now%>">删除</a>
 			</td>
 			<td><input name="add_to_new" id="add_to_new" type="button" value="推荐" onclick="add_to_new(<%=book.getId()%>);">
 			</td>

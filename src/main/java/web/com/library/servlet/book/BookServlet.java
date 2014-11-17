@@ -20,7 +20,6 @@ import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
 import com.library.domain.Book;
-import com.library.domain.Category;
 import com.library.domain.FeedBackBook;
 import com.library.domain.NewBook;
 import com.library.domain.User;
@@ -186,6 +185,8 @@ public class BookServlet extends BaseServlet {
 		String id = request.getParameter(Constants.ID);
 		Book book = bookService.getById(Long.valueOf(id));
 		request.setAttribute("book", book);
+		String page = request.getParameter(Constants.PAGE);
+		request.setAttribute("page", page);
 		direct(request, response, "/book/book.jsp");
 	}
 
@@ -283,7 +284,7 @@ public class BookServlet extends BaseServlet {
 		book.setPub(pub.trim());
 		book.setStock(Integer.valueOf(stock.trim()));
 		book.setType(type.trim());
-		book.setCategory(Long.valueOf(category));
+		book.setCategorys(category);
 		book.setNum(Integer.valueOf(num.trim()));
 
 		if (id == null || "".equals(id)) {
@@ -326,7 +327,7 @@ public class BookServlet extends BaseServlet {
 				if (and) {
 					hql.append(" and ");
 				}
-				hql.append(" category = " + category);
+				hql.append(" categorys like '%," + category + ",%'");
 				request.setAttribute("category", category);
 				and = true;
 			}
@@ -360,15 +361,6 @@ public class BookServlet extends BaseServlet {
 		}
 		List<Book> list = bookService.getBooks(page, Constants.PAGE_SIZE, hql
 				.append(" order by isdn ").toString());
-		List<Category> categorys = bookService.getCategorys();
-		for(Book b : list){
-			for(Category c : categorys){
-				if(b.getCategory() == c.getId()){
-					b.setCategory_name(c.getName());
-					break;
-				}
-			}
-		}
 		request.setAttribute("list", list);
 
 		request.setAttribute("page", page);

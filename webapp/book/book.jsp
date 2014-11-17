@@ -8,6 +8,7 @@
 	Book book = (Book) request.getAttribute("book");
 	List<Category> categorys = (List<Category>) request
 			.getAttribute("categorys");
+	Object page_now = request.getAttribute("page");
 %>
 
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
@@ -28,19 +29,41 @@
 
 <script type="text/javascript">
 	function init_data() {
+		var cs = document.getElementsByName("checkbox");
 		<%
 		if(book != null){
+			String cs = book.getCategorys();
+			if(cs != null && !"".equals(cs)){
+				String[] cs_array = cs.split(",");
+				for(String c : cs_array){
+					if(c != null && !"".equals(c)){
 		%>
-		var category = document.getElementById("category");
-		for ( var i = 0; i < category.options.length; i++) {
-			if (category.options[i].value =='<%=book.getCategory()%>') {
-				category.options[i].selected = true;
-				break;
+						var c = document.getElementById("category_<%=c%>");
+						c.checked = true;
+		<%
+					}
+				}
 			}
 		}
+		%>
+	}
+	
+	function submit_upd(){
+		var cv = ",";
 		<%
+		if(categorys != null){
+			for(Category c : categorys){
+		%>
+			var c = document.getElementById("category_<%=c.getId()%>");
+			if (c.checked) {
+				cv += c.value + ",";
+			}
+		<%
+			}
 		}
 		%>
+		document.getElementById("category").value = cv;
+		document.getElementById("form1").submit();
 	}
 </script>
 
@@ -51,6 +74,8 @@
 		action="<%=basePath%>/api?servlet=book&cmd=upd">
 		<input type="hidden" name="id"
 			value="<%=book == null ? "" : book.getId()%>">
+		<input type="hidden" name="page" id="page"
+			value="<%=page_now%>">
 		<table width="80%" border="1" align="center">
 			<tr>
 				<td>名称:</td>
@@ -91,17 +116,16 @@
 			<tr>
 				<td>分类:</td>
 				<td>
-					<select id="category" name="category">
+					<input type="hidden" id="category" name="category">
 					<%
 						if(categorys != null){
 							for(Category c : categorys){
 					%>
-						<option value="<%=c.getId()%>"><%=c.getName() %></option>
+						<input type="checkbox" name="category_<%=c.getId() %>" id="category_<%=c.getId() %>" value="<%=c.getId()%>"><%=c.getName() %>
 					<%
 							}
 						}
 					%>
-					</select>
 				</td>
 			</tr>
 			<tr>
@@ -130,7 +154,7 @@
 							<td><input type="reset" name="reset" id="reset" value="重置" />
 							</td>
 							<td>&nbsp;</td>
-							<td><input type="submit" name="submit" id="submit"
+							<td><input type="button" onclick="submit_upd();"
 								value="提交" />
 							</td>
 						</tr>

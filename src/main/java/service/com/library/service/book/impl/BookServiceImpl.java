@@ -65,7 +65,7 @@ public class BookServiceImpl implements BookService {
 	@Override
 	@SuppressWarnings("deprecation")
 	public List<Book> getNewBooks(int page) {
-		String sql = "SELECT t.id, t.name, t.isdn, t.age, t.type, t.category, t.img FROM book t, new_book n WHERE t.id = n.book_id ORDER BY n.id desc";
+		String sql = "SELECT t.id, t.name, t.isdn, t.age, t.type, t.categorys, t.img FROM book t, new_book n WHERE t.id = n.book_id ORDER BY n.id desc";
 		sql += " limit " + ((page - 1) * Constants.PAGE_SIZE) + ", "
 				+ Constants.PAGE_SIZE;
 		Session session = null;
@@ -84,9 +84,7 @@ public class BookServiceImpl implements BookService {
 				b.setType(res.getString("type"));
 				b.setIsdn(res.getString("isdn"));
 				b.setAge(res.getString("age"));
-				b.setCategory(res.getInt("category"));
-				Category c = getCategory(res.getLong("category"));
-				b.setCategory_name(c.getName());
+				b.setCategorys(res.getString("categorys"));
 				ret.add(b);
 			}
 		} catch (HibernateException e) {

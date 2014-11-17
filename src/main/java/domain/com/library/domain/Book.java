@@ -8,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "book")
@@ -28,8 +27,7 @@ public class Book implements Serializable {
 	private String info_img3;
 	private String author;
 	private String type;
-	private long category;
-	private String category_name;
+	private String categorys;
 	private String pub;
 	private String age;
 	private int age_begin;
@@ -38,15 +36,6 @@ public class Book implements Serializable {
 	private int stock;
 	private int num;
 	
-	@Transient
-	public String getCategory_name() {
-		return category_name;
-	}
-
-	public void setCategory_name(String category_name) {
-		this.category_name = category_name;
-	}
-
 	@Column(name = "age_begin")
 	public int getAge_begin() {
 		return age_begin;
@@ -65,13 +54,13 @@ public class Book implements Serializable {
 		this.age_end = age_end;
 	}
 
-	@Column(name = "category")
-	public long getCategory() {
-		return category;
+	@Column(name = "categorys")
+	public String getCategorys() {
+		return categorys;
 	}
 
-	public void setCategory(long category) {
-		this.category = category;
+	public void setCategorys(String categorys) {
+		this.categorys = categorys;
 	}
 
 	@Column(name = "num")
