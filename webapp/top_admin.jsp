@@ -43,7 +43,7 @@
 			</td>
 			<td><a href="<%=basePath%>/api?servlet=book&cmd=list">图书管理</a>
 			</td>
-			<td><a href="<%=basePath%>/api?servlet=book&cmd=new_book_list_admin">新书推荐管理</a>
+			<td><a href="<%=basePath%>/api?servlet=book&cmd=new_book_list_admin">推荐阅读管理</a>
 			</td>
 			<td><a href="<%=basePath%>/api?servlet=borrow&cmd=list">借阅管理</a>
 			</td>

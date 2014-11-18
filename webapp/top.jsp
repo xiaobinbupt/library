@@ -50,7 +50,7 @@
 				<td width="12" class="zi-banner"></td>
 				<td width="94" class="zi-banner">
 					<a class="zi-banner" href="<%=basePath%>api?servlet=book&cmd=new_book_list">
-					<strong><font color="#ffffff">新书推荐</font></strong> </a>
+					<strong><font color="#ffffff">推荐阅读</font></strong> </a>
 				</td>
 				<td width="94" class="zi-banner">
 					<a class="zi-banner" href="<%=basePath%>api?servlet=book&cmd=list&search=1">

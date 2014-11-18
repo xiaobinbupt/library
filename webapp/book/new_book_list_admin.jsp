@@ -75,8 +75,6 @@
 		<tr align="center">
 			<td>ISDN</td>
 			<td>名称</td>
-			<td>类型</td>
-			<td>分类</td>
 			<td>适度年龄</td>
 			<td width="5%">删除</td>
 		</tr>
@@ -86,8 +84,6 @@
 		<tr align="center">
 			<td><%=book.getIsdn()%></td>
 			<td><%=book.getName()%></td>
-			<td><%=book.getType()%></td>
-			<td><%=book.getCategory_name()%></td>
 			<td><%=book.getAge()%></td>
 			<td><a
 				href="<%=basePath%>/api?servlet=book&cmd=del_new_book&id=<%=book.getId()%>">删除</a>

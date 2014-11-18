@@ -74,7 +74,7 @@
 							</tr>
 							<tr>
 								<td>• <a class="zi-leibie2" href="<%=basePath%>api?servlet=book&cmd=new_book_list"><font
-										color="#FF0000">新书推荐</font> </a></td>
+										color="#FF0000">推荐阅读</font> </a></td>
 							</tr>
 						</tbody>
 					</table>
