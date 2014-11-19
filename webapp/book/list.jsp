@@ -123,7 +123,7 @@
 		</table>
 	</form>
 	<div>
-		<a href="<%=basePath%>/api?servlet=book&cmd=prepare_add">新建书籍</a>
+		<a href="<%=basePath%>/api?servlet=book&cmd=prepare_add&page=<%=page_now%>">新建书籍</a>
 	</div>
 	<hr />
 	<div align="center">

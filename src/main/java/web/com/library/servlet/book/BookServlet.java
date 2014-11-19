@@ -302,6 +302,8 @@ public class BookServlet extends BaseServlet {
 
 	private void prepare_add(HttpServletRequest request,
 			HttpServletResponse response) {
+		String page = request.getParameter(Constants.PAGE);
+		request.setAttribute("page", page);
 		direct(request, response, "/book/book.jsp");
 	}
 
