@@ -58,7 +58,7 @@
 				</td>
 				<td width="94" class="zi-banner">
 					<a class="zi-banner" href="<%=basePath%>api?servlet=feedback&cmd=list">
-					<strong><font color="#ffffff">意见及建议</font></strong> </a>
+					<strong><font color="#ffffff">您的想法</font></strong> </a>
 				</td>
 				<td width="342" class="zi-banner"><div align="right">
 						<%

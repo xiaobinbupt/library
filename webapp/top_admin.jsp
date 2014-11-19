@@ -47,7 +47,7 @@
 			</td>
 			<td><a href="<%=basePath%>/api?servlet=borrow&cmd=list">借阅管理</a>
 			</td>
-			<td><a href="<%=basePath%>/api?servlet=feedback&cmd=list">意见及建议</a>
+			<td><a href="<%=basePath%>/api?servlet=feedback&cmd=list">您的想法</a>
 			</td>
 			<td><a
 				href="<%=basePath%>/api?servlet=system&cmd=prepare_upd_user">用户信息</a>

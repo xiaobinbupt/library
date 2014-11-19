@@ -62,15 +62,15 @@
 						<tbody>
 							<tr>
 								<td>• <a class="zi-leibie2" href="rule.jsp"><font
-										color="#FF0000">计划及价格</font> </a></td>
+										color="#FF0000">租赁规则</font> </a></td>
 							</tr>
 							<tr>
 								<td>• <a class="zi-leibie2" href="introduce.jsp"><font
 										color="#FF0000">为什么选择绘本阅读</font> </a></td>
 							</tr>
 							<tr>
-								<td>• <a class="zi-leibie2" href="rule.jsp"><font
-										color="#FF0000">促销政策</font> </a></td>
+								<td>• <a class="zi-leibie2" href="activity.jsp"><font
+										color="#FF0000">暖心之旅</font> </a></td>
 							</tr>
 							<tr>
 								<td>• <a class="zi-leibie2" href="<%=basePath%>api?servlet=book&cmd=new_book_list"><font
