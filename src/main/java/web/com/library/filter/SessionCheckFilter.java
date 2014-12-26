@@ -62,7 +62,9 @@ public class SessionCheckFilter implements Filter {
 			}
 		} else if (servlet.equals("system")) {
 			String cmd = request.getParameter(Constants.CMD);
-			if ("user_list".equals(cmd) || "upd_user".equals(cmd)
+			String id = request.getParameter(Constants.ID);
+			if ("user_list".equals(cmd)
+					|| ("upd_user".equals(cmd) && id != null && !id.equals(""))
 					|| "prepare_upd_user".equals(cmd)) {
 				if (session == null
 						|| session.getAttribute("user_name") == null) {
