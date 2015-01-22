@@ -21,5 +21,5 @@ public interface BorrowService {
 
 	public Borrow getBorrowById(long id);
 	
-	public Borrow getBorrowByUserIdBookId(long user_id, long book_id);
+	public Borrow getBorrowByUserIdBookId(long user_id, long book_id, int status);
 }

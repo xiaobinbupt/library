@@ -53,10 +53,11 @@ public class BorrowServiceImpl implements BorrowService {
 	}
 
 	@Override
-	public Borrow getBorrowByUserIdBookId(long user_id, long book_id) {
+	public Borrow getBorrowByUserIdBookId(long user_id, long book_id, int status) {
 		Collection<HibernateExpression> ex = new ArrayList<HibernateExpression>();
 		ex.add(new CompareExpression("user_id", user_id, CompareType.Equal));
 		ex.add(new CompareExpression("book_id", book_id, CompareType.Equal));
+		ex.add(new CompareExpression("status", status, CompareType.Equal));
 		List<Borrow> list = getBorrows(0, 0, null, true, ex);
 		if(list != null && list.size() > 0){
 			return list.get(0);

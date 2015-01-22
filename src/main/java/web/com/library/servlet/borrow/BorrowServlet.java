@@ -111,7 +111,7 @@ public class BorrowServlet extends BaseServlet {
 		if (id == null || "".equals(id)) {
 			// 新增
 			borrow = borrowService.getBorrowByUserIdBookId(
-					Long.valueOf(user_id), Long.valueOf(book_id));
+					Long.valueOf(user_id), Long.valueOf(book_id), 0);
 			if (borrow != null) {
 				// 重复提交
 				list(request, response);
