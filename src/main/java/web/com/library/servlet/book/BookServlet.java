@@ -319,10 +319,17 @@ public class BookServlet extends BaseServlet {
 		if (search != null) {
 			hql.append(" where");
 			boolean and = false;
+			String isdn = request.getParameter(Constants.ISDN);
 			String name = request.getParameter(Constants.NAME);
 			String age_begin = request.getParameter(Constants.AGE_BEGIN);
 			String age_end = request.getParameter(Constants.AGE_END);
 			String category = request.getParameter(Constants.CATEGORY);
+			if (!StringUtil.isEmpty(isdn)) {
+				and = true;
+				hql.append(" isdn = '" + isdn + "'");
+				request.setAttribute("isdn", isdn);
+			}
+
 			if (!StringUtil.isEmpty(name)) {
 				and = true;
 				hql.append(" name like '%" + name + "%'");

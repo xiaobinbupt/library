@@ -38,6 +38,20 @@
 	-->
 	<script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
 <script type="text/javascript" src="<%=basePath%>/js/main.js"></script>
+<script type="text/javascript" src="<%=basePath%>js/jquery.js"></script>
+<script type="text/javascript">
+	function get_borrow(book_id) {
+		$.ajax({
+			type : "post",
+			url : "<%=basePath%>api?servlet=borrow&cmd=get_book_borrow&book_id=" + book_id,
+			dataType : "json",
+			success : function(data) {
+				var borrows = data[0].borrows;
+				alert(borrows);
+			}
+		});
+	}
+</script>
 <script type="text/javascript">
 	function page_up() {
 		var page_now = document.getElementById("page");
@@ -97,8 +111,16 @@
 		<input type="hidden" id="page" name="page" value="<%=page_now%>">
 		<table width="50%" border="1" align="center">
 			<tr>
+				<td>ISDN:</td>
+				<td><input type="text" name="isdn" /></td>
 				<td>名称:</td>
 				<td><input type="text" name="name" /></td>
+			</tr>
+			<tr>
+				<td>年龄:</td>
+				<td><input type="text" name="age_begin" id="age_begin" style="width: 30" value="<%=age_begin == null ? "" : age_begin%>">-
+					<input type="text" name="age_end" id="age_end" style="width: 30" value="<%=age_end == null ? "" : age_end%>">岁
+				</td>
 				<td>分类:</td>
 				<td><select name="category" id="category">
 						<option value="">全部</option>
@@ -112,15 +134,8 @@
 						%>
 					</select></td>
 			</tr>
-			<tr>
-				<td>年龄:</td>
-				<td><input type="text" name="age_begin" id="age_begin" style="width: 30" value="<%=age_begin == null ? "" : age_begin%>">-
-					<input type="text" name="age_end" id="age_end" style="width: 30" value="<%=age_end == null ? "" : age_end%>">岁
-				</td>
-				<td colspan="2"><input type="button" value="查询"
-					onclick="book_query();" /></td>
-			</tr>
 		</table>
+		<center><input type="button" value="查询" onclick="book_query();" /></center>
 	</form>
 	<div>
 		<a href="<%=basePath%>/api?servlet=book&cmd=prepare_add&page=<%=page_now%>">新建书籍</a>
@@ -154,6 +169,7 @@
 			<td>年龄</td>
 			<td>数量</td>
 			<td>库存</td>
+			<td>借阅者</td>
 			<td width="5%">修改</td>
 			<td width="5%">配图</td>
 			<td width="5%">删除</td>
@@ -170,6 +186,8 @@
 			<td><%=book.getAge()%></td>
 			<td><%=book.getNum()%></td>
 			<td><%=book.getStock()%></td>
+			<td><a id="get_borrow" href="javascript:void(0);" onclick="get_borrow(<%=book.getId()%>)">查看</a>
+			</td>
 			<td><a
 				href="<%=basePath%>/api?servlet=book&cmd=prepare_upd&id=<%=book.getId()%>&page=<%=page_now%>">修改</a>
 			</td>

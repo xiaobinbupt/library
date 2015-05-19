@@ -37,4 +37,5 @@ public class Constants {
 	public static final String PUB = "pub";
 	public static final String PAGE = "page";
 	public static final String CATEGORY = "category";
+	public static final String CONFIG_NUM = "config_num";
 }

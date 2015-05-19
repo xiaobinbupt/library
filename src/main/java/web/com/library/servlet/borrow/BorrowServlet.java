@@ -14,6 +14,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.hibernate.connection.UserSuppliedConnectionProvider;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -62,7 +63,47 @@ public class BorrowServlet extends BaseServlet {
 			upd_status(request, response);
 		} else if ("get_user_remain_stock".equals(cmd)) {
 			get_user_remain_stock(request, response);
+		} else if ("get_book_borrow".equals(cmd)) {
+			get_book_borrow(request, response);
 		}
+	}
+
+	private void get_book_borrow(HttpServletRequest request,
+			HttpServletResponse response) throws IOException {
+		String book_id = request.getParameter(Constants.BOOK_ID);
+		StringBuffer sb = new StringBuffer();
+		if (StringUtil.isNumber(book_id)) {
+			Collection<HibernateExpression> ex = new ArrayList<HibernateExpression>();
+
+			// 只查询在借状态的订单
+			ex.add(new CompareExpression("status", 2, CompareType.Equal));
+			ex.add(new CompareExpression("book_id", Long.valueOf(book_id),
+					CompareType.Equal));
+
+			List<Borrow> list = borrowService.getBorrows(1, Integer.MAX_VALUE,
+					"num", false, ex);
+			if (list != null && list.size() > 0) {
+				for (Borrow b : list) {
+					User u = systemService.getUserById(b.getUser_id());
+					sb.append(
+							(u.getReal_name() == null ? b.getUser_id() : u
+									.getReal_name())).append(":")
+							.append(b.getNum()).append("\n");
+				}
+			}
+		}
+		JSONArray ret = new JSONArray();
+		JSONObject j = new JSONObject();
+		if (sb.length() == 0) {
+			j.put("borrows", "无");
+		} else {
+			j.put("borrows", sb.toString());
+		}
+		ret.add(j);
+		PrintWriter out = response.getWriter();
+		out.print(ret.toJSONString());
+		out.flush();
+		out.close();
 	}
 
 	@SuppressWarnings("unchecked")
@@ -73,15 +114,21 @@ public class BorrowServlet extends BaseServlet {
 		if (StringUtil.isNumber(user_id_p)) {
 			long user_id = Long.valueOf(user_id_p);
 			if (user_id > 10) {// 不包括管理员
-				// 只算新建的订单
-				List<Borrow> list = getBorrowList(user_id, null, 1, "0", null,
-						null, "0");
-				if (list != null && list.size() > 0) {
-					for (Borrow borrow : list) {
-						max_num -= borrow.getNum();
+				User u = systemService.getUserById(user_id);
+				if(u != null){
+					max_num = u.getConfig_num();
+					// 只算新建的订单
+					List<Borrow> list = getBorrowList(user_id, null, 1, "0", null,
+							null, "0");
+					if (list != null && list.size() > 0) {
+						for (Borrow borrow : list) {
+							max_num -= borrow.getNum();
+						}
 					}
-				}
-				if (max_num < 0) {
+					if (max_num < 0) {
+						max_num = 0;
+					}
+				}else{
 					max_num = 0;
 				}
 			}

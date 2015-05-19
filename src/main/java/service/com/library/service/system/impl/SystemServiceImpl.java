@@ -26,6 +26,12 @@ public class SystemServiceImpl implements SystemService {
 		controller.update(user);
 	}
 
+	@Override
+	public void updUserConfigNum(long user_id, int config_num) {
+		String hql = "update User set config_num = ? where id = ?";
+		controller.executeUpdate(hql, new Object[] { config_num, user_id });
+	}
+
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUsers(int page, int page_size, String order_by,

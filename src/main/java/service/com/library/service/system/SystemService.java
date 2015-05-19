@@ -11,6 +11,8 @@ public interface SystemService {
 	public long addUser(User user);
 
 	public void updUser(User user);
+	
+	public void updUserConfigNum(long user_id, int config_num);
 
 	public List<User> getUsers(int page, int page_size, String order_by,
 			boolean insc, Collection<HibernateExpression> ex);

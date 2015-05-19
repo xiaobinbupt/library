@@ -32,6 +32,18 @@ public class User implements Serializable {
 	private String des;
 	private int borrowed_num;
 	
+	//配置的借阅量,默认5
+	private int config_num = 5;
+	
+	@Column(name = "config_num")
+	public int getConfig_num() {
+		return config_num;
+	}
+
+	public void setConfig_num(int config_num) {
+		this.config_num = config_num;
+	}
+
 	@Column(name = "district")
 	public String getDistrict() {
 		return district;

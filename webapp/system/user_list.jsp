@@ -10,6 +10,15 @@
 	String name = (String)request.getAttribute("name");
 	String real_name = (String)request.getAttribute("real_name");
 	String district = (String)request.getAttribute("district");
+	if(name == null){
+		name = "";
+	}
+	if(real_name == null){
+		real_name = "";
+	}
+	if(district == null){
+		district = "";
+	}
 	
 	int total_pages = (Integer)request.getAttribute("total_pages");
 	int page_now = (Integer)request.getAttribute("page");
@@ -63,6 +72,12 @@
 	
 	function show_pwd(pwd){
 		alert(pwd);
+	}
+	
+	function config_num(id,num){
+		window.location.href = 'system/user_config_num.jsp?user_id=' + id + '&config_num=' + num
+				+ '&page=<%=page_now%>&name=<%=name%>&real_name=<%=real_name%>&district=<%=district%>';
+		//window.open('system/user_config_num.jsp?user_id=' + id + '&config_num=' + num,'newwindow','height=200,width=600,top=200,left=300,toolbar=no,menubar=no,scrollbars=no,resizable=no,location=no, status=no')  
 	}
 </script>
 </head>
@@ -122,6 +137,7 @@
 			<td width="4%">电话</td>
 			<td width="4%">创建时间</td>
 			<td width="5%">描述</td>
+			<td width="5%">配额</td>
 			<td width="3%">订单</td>
 			<td width="3%">密码</td>
 		</tr>
@@ -136,6 +152,7 @@
 			<td><%=user.getMobile()%></td>
 			<td><%=user.getCreate_time().toLocaleString()%></td>
 			<td><%=user.getDes()%></td>
+			<td><a href="javascript:void(0);" onclick="config_num('<%=user.getId()%>','<%=user.getConfig_num()%>')"><%=user.getConfig_num()%></a></td>
 			<td><a
 				href="<%=basePath%>/api?servlet=borrow&cmd=list&user_id=<%=user.getId()%>">查看</a></td>
 			<td><input type="button" value="查看" onclick="show_pwd('<%=user.getPassword()%>');"></td>

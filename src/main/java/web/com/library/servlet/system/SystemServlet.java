@@ -45,7 +45,18 @@ public class SystemServlet extends BaseServlet {
 			prepare_upd_user(request, response);
 		} else if ("user_list".equals(cmd)) {
 			user_list(request, response);
+		} else if ("upd_user_config_num".equals(cmd)) {
+			upd_user_config_num(request, response);
 		}
+	}
+
+	private void upd_user_config_num(HttpServletRequest request,
+			HttpServletResponse response) {
+		String user_id = request.getParameter(Constants.USER_ID);
+		String config_num = request.getParameter(Constants.CONFIG_NUM);
+		systemService.updUserConfigNum(Long.valueOf(user_id), Integer.valueOf(config_num));
+		
+		user_list(request, response);
 	}
 
 	private void user_list(HttpServletRequest request,
