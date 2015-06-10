@@ -9,6 +9,8 @@
 
 	<bean id="bookServlet"	 	class="com.library.servlet.book.BookServlet" />
 	<bean id="borrowServlet" 	class="com.library.servlet.borrow.BorrowServlet" />
+	<bean id="toyServlet"	 	class="com.library.servlet.toy.ToyServlet" />
+	<bean id="orderServlet"	 	class="com.library.servlet.order.OrderServlet" />
 	<bean id="systemServlet" 	class="com.library.servlet.system.SystemServlet" />
 	<bean id="feedbackServlet" 	class="com.library.servlet.feedback.FeedBackServlet" />
 </beans>

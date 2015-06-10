@@ -60,6 +60,44 @@ public class SessionCheckFilter implements Filter {
 					return;
 				}
 			}
+		} else if (servlet.equals("book")) {
+			String cmd = request.getParameter(Constants.CMD);
+			if (!"list".equals(cmd) && !"info_customer".equals(cmd)) {
+				if (session == null
+						|| session.getAttribute("user_name") == null) {
+					try {
+						response.sendRedirect(request.getHeader("Referer")
+								+ "&err=" + URLEncoder.encode("请先登录!", "UTF-8"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return;
+				}
+			}
+		} else if (servlet.equals("toy")) {
+			String cmd = request.getParameter(Constants.CMD);
+			if (!"list".equals(cmd) && !"info_customer".equals(cmd)) {
+				if (session == null
+						|| session.getAttribute("user_name") == null) {
+					try {
+						response.sendRedirect(request.getHeader("Referer")
+								+ "&err=" + URLEncoder.encode("请先登录!", "UTF-8"));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					return;
+				}
+			}
+		} else if (servlet.equals("order")) {
+			if (session == null || session.getAttribute("user_name") == null) {
+				try {
+					response.sendRedirect(request.getHeader("Referer")
+							+ "&err=" + URLEncoder.encode("请先登录!", "UTF-8"));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				return;
+			}
 		} else if (servlet.equals("system")) {
 			String cmd = request.getParameter(Constants.CMD);
 			String id = request.getParameter(Constants.ID);

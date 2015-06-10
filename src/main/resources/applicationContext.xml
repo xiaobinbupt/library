@@ -52,6 +52,8 @@
 				<value>com.library.domain.User</value>
 				<value>com.library.domain.FeedBack</value>
 				<value>com.library.domain.FeedBackBook</value>
+				<value>com.library.domain.Toy</value>
+				<value>com.library.domain.Order</value>
 			</list>
 		</property>
 		<property name="hibernateProperties">

@@ -9,6 +9,8 @@
 
 	<bean id="bookService" 		class="com.library.service.book.impl.BookServiceImpl" />
 	<bean id="borrowService" 	class="com.library.service.borrow.impl.BorrowServiceImpl" />
+	<bean id="toyService" 		class="com.library.service.toy.impl.ToyServiceImpl" />
+	<bean id="orderService" 	class="com.library.service.order.impl.OrderServiceImpl" />
 	<bean id="systemService" 	class="com.library.service.system.impl.SystemServiceImpl" />
 	<bean id="feedBackService" 	class="com.library.service.feedback.impl.FeedBackServiceImpl" />
 </beans>

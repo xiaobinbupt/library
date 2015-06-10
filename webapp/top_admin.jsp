@@ -47,6 +47,10 @@
 			</td>
 			<td><a href="<%=basePath%>/api?servlet=borrow&cmd=list">借阅管理</a>
 			</td>
+			<td><a href="<%=basePath%>/api?servlet=toy&cmd=list">玩具管理</a>
+			</td>
+			<td><a href="<%=basePath%>/api?servlet=order&cmd=list">玩具订单管理</a>
+			</td>
 			<td><a href="<%=basePath%>/api?servlet=feedback&cmd=list">您的想法</a>
 			</td>
 			<td><a

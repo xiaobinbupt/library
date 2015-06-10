@@ -11,9 +11,11 @@ public class Constants {
 	public static final String ID = "id";
 	public static final String IDS = "ids";
 	public static final String ISDN = "isdn";
+	public static final String PRICE = "price";
 	public static final String STOCK = "stock";
 	public static final String SEARCH = "search";
 	public static final String BOOK_ID = "book_id";
+	public static final String TOY_ID = "toy_id";
 	public static final String NUM = "num";
 	public static final String BEGIN = "begin";
 	public static final String END = "end";

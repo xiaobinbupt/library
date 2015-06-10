@@ -226,7 +226,7 @@ public class BookServlet extends BaseServlet {
 							.lastIndexOf('.'));
 					String img_name = id + "_" + name + "_"
 							+ System.currentTimeMillis() + type;
-					File uploadedFile = new File(Constants.UPLOAD_IMG_IDR
+					File uploadedFile = new File(Constants.UPLOAD_IMG_IDR + "book/"
 							+ img_name);
 					if (!uploadedFile.getParentFile().exists()) {
 						uploadedFile.getParentFile().mkdirs();

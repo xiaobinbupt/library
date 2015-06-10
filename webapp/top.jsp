@@ -57,6 +57,10 @@
 					<strong><font color="#ffffff">图书列表</font> </strong> </a>
 				</td>
 				<td width="94" class="zi-banner">
+					<a class="zi-banner" href="<%=basePath%>api?servlet=toy&cmd=list&search=1">
+					<strong><font color="#ffffff">玩具列表</font> </strong> </a>
+				</td>
+				<td width="94" class="zi-banner">
 					<a class="zi-banner" href="<%=basePath%>api?servlet=feedback&cmd=list">
 					<strong><font color="#ffffff">您的想法</font></strong> </a>
 				</td>
@@ -72,6 +76,8 @@
 						</font> &nbsp;&nbsp;<a class="zi-banner"
 							href="<%=basePath%>api?servlet=borrow&cmd=list"><font
 							color="#FFFFFF">订阅列表</font> </a> &nbsp;&nbsp;<a class="zi-banner"
+							href="<%=basePath%>api?servlet=order&cmd=list"><font
+							color="#FFFFFF">购买列表</font> </a> &nbsp;&nbsp;<a class="zi-banner"
 							href="<%=basePath%>api?servlet=system&cmd=logout"><font
 							color="#FFFFFF">退出</font> </a>
 						<%
